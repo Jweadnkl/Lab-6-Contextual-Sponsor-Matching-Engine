@@ -12,3 +12,17 @@ A lightweight, transparent, and deterministic sponsor selection module built for
 
 3. **Stable Rotation & Tie-Breaking:** 
    When multiple candidate sponsors possess identical priority levels and geographic parameters, the selector avoids random jitter by enforcing a strict string-based tie-breaker on candidate IDs using `a.id.localeCompare(b.id)`.
+
+
+## Sponsor Eligibility & Selection Engine Audit
+
+### 1. SQL / Database Query Definition
+```sql
+SELECT id, title, destination_url, priority, target_zips
+FROM sponsors
+WHERE status = 'APPROVED'                                  -- Administrative status enforcement
+  AND active = TRUE                                        -- Active state filter
+  AND placement = $1                                       -- Target UI placement slot
+  AND CURRENT_DATE BETWEEN start_date AND end_date         -- Temporal validity window
+  AND $2 = ANY(target_zips)                                -- Spatial / ZIP code scoping match
+ORDER BY priority DESC, id ASC;                            -- Deterministic tie-breaking sort
