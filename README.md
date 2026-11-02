@@ -26,3 +26,18 @@ WHERE status = 'APPROVED'                                  -- Administrative sta
   AND CURRENT_DATE BETWEEN start_date AND end_date         -- Temporal validity window
   AND $2 = ANY(target_zips)                                -- Spatial / ZIP code scoping match
 ORDER BY priority DESC, id ASC;                            -- Deterministic tie-breaking sort
+
+### 3. FTC Disclosure & Accessibility DOM Audit
+
+#### HTML Structure (`index.html`)
+```html
+<aside class="ad-card" role="region" aria-label="Sponsored Content Placement">
+  <!-- FTC Disclosure Container -->
+  <span class="disclosure" aria-hidden="true">Sponsored / Local Partner</span>
+  
+  <h3 class="ad-title" id="ad-title">Loading...</h3>
+  
+  <a href="#" id="ad-link" class="ad-link" target="_blank" rel="noopener noreferrer sponsored" aria-label="Sponsored partner link">
+    Visit Partner
+  </a>
+</aside>
