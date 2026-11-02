@@ -131,3 +131,24 @@ runTests();
 renderSponsorPlacement({ userZip: '90210', currentDate: '2026-11-02', placement: 'sidebar' }, [
   { id: 'S1', title: 'Downtown Bakery', status: 'approved', active: true, placement: 'sidebar', startDate: '2026-01-01', endDate: '2026-12-31', targetZips: ['90210'], priority: 10, destinationUrl: 'https://downtownbakery.com' }
 ]);
+
+function validateSponsorUrl(urlString) {
+  try {
+    const parsedUrl = new URL(urlString);
+    
+    // Enforce HTTPS protocol security
+    if (parsedUrl.protocol !== 'https:') {
+      return { success: false, error: "SecurityError: Destination must use secure HTTPS protocol." };
+    }
+    
+    // Prevent raw IP address endpoints
+    const isIpAddress = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(parsedUrl.hostname);
+    if (isIpAddress) {
+      return { success: false, error: "SecurityError: Raw IP addresses are forbidden in sponsor records." };
+    }
+    
+    return { success: true, url: parsedUrl.toString() };
+  } catch (err) {
+    return { success: false, error: "ValidationError: Malformed URL syntax." };
+  }
+}
