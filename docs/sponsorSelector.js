@@ -152,3 +152,19 @@ function validateSponsorUrl(urlString) {
     return { success: false, error: "ValidationError: Malformed URL syntax." };
   }
 }
+
+function renderSponsorPlacement(context, candidates) {
+  const cardTitle = document.getElementById('ad-title');
+  const cardLink = document.getElementById('ad-link');
+  const selectedSponsor = selectSponsor(context, candidates);
+
+  if (!selectedSponsor) {
+    cardTitle.textContent = "Support Local Community Programs!";
+    cardLink.textContent = "Learn How to Participate";
+    cardLink.href = "/community-info";
+    return;
+  }
+
+  cardTitle.textContent = selectedSponsor.title;
+  cardLink.href = selectedSponsor.destinationUrl;
+}
