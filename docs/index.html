@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deterministic Sponsor Selector</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f4f4f9; }
+    .ad-card { border: 2px solid #ccc; padding: 16px; border-radius: 8px; background: #fff; max-width: 400px; }
+    .disclosure { font-size: 0.75rem; color: #555; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
+    .ad-title { font-size: 1.25rem; font-weight: bold; margin: 0 0 8px 0; }
+    .ad-link { color: #0066cc; text-decoration: none; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Local Placement Preview</h2>
+  
+  <!-- Sponsored / Local Partner Disclosure (Requirement 6) -->
+  <div class="ad-card" id="sponsor-card">
+    <div class="disclosure" id="ad-disclosure">Sponsored / Local Partner</div>
+    <div class="ad-title" id="ad-title">Loading...</div>
+    <a href="#" id="ad-link" class="ad-link" target="_blank">Learn More</a>
+  </div>
+
+  <div id="test-results" style="margin-top: 30px;"></div>
+</body>
+</html>
